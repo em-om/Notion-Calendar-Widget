@@ -1,11 +1,85 @@
-index.html
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Burnt Orange Calendar</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== Burnt-orange Calendar CSS ===== */
+    :root {
+      --bg: #fff7f2;
+      --text: #4a1f16;
+      --muted: #e7c2b8;
+      --accent: #c2410c;        /* burnt orange */
+      --accent-soft: #f3d1c3;
+      --accent-text: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: transparent;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: var(--text);
+    }
+
+    .calendar {
+      width: 320px;
+      padding: 14px;
+      background: var(--bg);
+      border-radius: 14px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h2 {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin-top: 10px;
+      font-size: 0.75rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .day {
+      padding: 8px 0;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .day:hover {
+      background: var(--accent-soft);
+    }
+
+    .today {
+      background: var(--accent);
+      color: var(--accent-text);
+    }
+  </style>
 </head>
 <body>
   <div class="calendar">
@@ -23,8 +97,56 @@ index.html
     <div class="days" id="days"></div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // ===== Burnt-orange Calendar JS =====
+    const daysEl = document.getElementById("days");
+    const monthYearEl = document.getElementById("monthYear");
+
+    let date = new Date();
+
+    function renderCalendar() {
+      daysEl.innerHTML = "";
+
+      const year = date.getFullYear();
+      const month = date.getMonth();
+
+      monthYearEl.textContent = date.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+      });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        daysEl.innerHTML += `<div></div>`;
+      }
+
+      for (let d = 1; d <= lastDate; d++) {
+        const isToday =
+          d === new Date().getDate() &&
+          month === new Date().getMonth() &&
+          year === new Date().getFullYear();
+
+        daysEl.innerHTML += `
+          <div class="day ${isToday ? "today" : ""}">
+            ${d}
+          </div>
+        `;
+      }
+    }
+
+    document.getElementById("prev").onclick = () => {
+      date.setMonth(date.getMonth() - 1);
+      renderCalendar();
+    };
+
+    document.getElementById("next").onclick = () => {
+      date.setMonth(date.getMonth() + 1);
+      renderCalendar();
+    };
+
+    renderCalendar();
+  </script>
 </body>
 </html>
-
-
