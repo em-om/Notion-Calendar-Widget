@@ -1,0 +1,77 @@
+:root {
+  --bg: #fff7f2;
+  --text: #4a1f16;
+  --muted: #e7c2b8;
+  --accent: #c2410c;        /* burnt orange */
+  --accent-soft: #f3d1c3;
+  --accent-text: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: transparent;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--text);
+}
+
+.calendar {
+  width: 320px;
+  padding: 14px;
+  background: var(--bg);
+  border-radius: 14px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-top: 10px;
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.day {
+  padding: 8px 0;
+  text-align: center;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.day:hover {
+  background: var(--accent-soft);
+}
+
+.today {
+  background: var(--accent);
+  color: var(--accent-text);
+}
